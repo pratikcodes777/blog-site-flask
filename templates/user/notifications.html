@@ -1,0 +1,30 @@
+
+{% extends 'blog/base.html' %}
+{% block title %} Notifications {% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <!-- Add any CSS stylesheets or Bootstrap CDN links here -->
+</head>
+<body>
+    <div class="container">
+        <h1>Notifications</h1>
+        <ol class="list-group">
+            {% for notification in notifications %}
+            <li class="list-group-item {% if notification.status == 'unread' %}unread{% endif %}">
+                {{ notification.message }}
+               <u> <span class="timestamp">{{ notification.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span></u>
+                <!-- Adjust the date format as needed -->
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</body>
+</html>
+
+{% endblock %}

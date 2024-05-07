@@ -1,0 +1,56 @@
+
+            <div class="col-sm-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <img src="data:{{ blog.mime_type }}; base64, {{ blog.img }}" alt="thumbnail here" width="100%"> 
+                        <br><br>
+                        <a href="{{ url_for('expand_blog', blog_id=blog.id) }}"><h5 class="card-title" style="text-decoration: underline; color: black;">{{ blog.name }}</h5></a>
+                        <p class="card-text">{{ blog.desc[:200] }}{% if blog.desc|length > 200 %}... <a href="{{ url_for('expand_blog', blog_id=blog.id) }}">See More</a>{% endif %}</p>
+                        <p class="card-text"><b>Created By:</b> {{ blog.author.email }}</p>
+                        <p class="card-text"><b>Created On:</b> {{ blog.date_created }}</p>
+                        {% if current_user.is_authenticated %}
+    {% if current_user.id == blog.author.id %}
+        <!-- If the current user is the owner of the blog -->
+        <a href="/update/{{ blog.id }}" class="btn btn-outline-primary">Update</a>
+        <a href="/delete/{{ blog.id }}" class="btn btn-outline-danger">Delete</a>
+    {% else %}
+        {% if current_user.is_friend_with(blog.author.id) %}
+            <!-- If the current user is already friends with the author -->
+            <form action="{{ url_for('delete_friendship', friend_id=blog.author.id) }}" method="post">
+                <button type="submit" class="btn btn-primary">Remove Friend</button>
+            </form>
+        {% elif current_user.has_pending_request_with(blog.author.id) %}
+            <form action="{{ url_for('cancel_request', friendship_id=blog.author.id) }}" method="post">
+                <button type="submit" class="btn btn-outline-secondary">Cancel Request</button>
+            </form>
+            
+        {% elif current_user.has_pending_request_from(blog.author.id) %}
+            <!-- If there is a pending friend request from the author to the current user -->
+            <button type="button" class="btn btn-primary" disabled>Friend Request Received</button>
+            </form>
+        {% else %}
+            <!-- If there is no existing relationship or pending request -->
+            <form action="{{ url_for('send_friend_request', user_id=blog.author.id) }}" method="post">
+                <button type="submit" class="btn btn-primary">Send Friend Request</button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+          
+                        <br>
+                        <span id="likes-count-{{ blog.id }}">{{ blog.likes|length }}</span> users liked.
+                        {% if current_user.is_authenticated %}
+                            <div>
+                                {% if current_user.id in blog.likes|map(attribute='user_id')|list %}
+                                    <i class="fa-solid fa-heart" id="like-button-{{ blog.id }}" onclick="like({{ blog.id }})"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-heart" id="like-button-{{ blog.id }}" onclick="like({{ blog.id }})"></i>
+                                {% endif %}
+                            </div>
+                            <a href="{{ url_for('liked_users', id=blog.id) }}">See who liked.</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+

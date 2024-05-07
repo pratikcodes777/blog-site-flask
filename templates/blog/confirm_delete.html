@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block title %} Add Blogs {% endblock %}
+
+{% block body %}
+<div class="container d-flex my-3" style="justify-content: center;">
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Confirm Delete?</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Are you sure you want to delete the blog titled "{{ blog.name }}"? </h6>
+      <br>
+        <form method="POST" action="/delete/{{ blog.id }}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-light"><a href="/home">Cancel</a></button>
+            
+        </form>
+    </div>
+  </div></div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block title %} Add Blogs {% endblock %}
+
+{% block body %}
+
+    <h1>Friend Requests</h1>
+    {% if incoming_requests %}
+        <ul>
+            {% for request in incoming_requests %}
+                <li>
+                    <strong>{{ request.sender.email }}</strong> sent you a friend request.
+                    <form action="{{ url_for('accept_friend_request', friendship_id=request.id) }}" method="post">
+                        <button type="submit">Accept</button>
+                    </form>
+                    <form action="{{ url_for('cancel_friend_request', friendship_id=request.id) }}" method="post">
+                        <button type="submit">Cancel</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No incoming friend requests.</p>
+    {% endif %}
+    {% endblock %}

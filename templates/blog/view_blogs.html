@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+<div class="container">
+<div class="btn-group">
+  <h1 style="display: flex; justify-content:center; width: 80vw;">Our Blogs:</h1> 
+</div>
+</div>
+
+
+
+<div class="container my-3">
+  {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    <div class="row">
+      {% for blog in details %}  
+      {% if current_user.is_authenticated and current_user.email == blog.author.email %}  
+      {% include 'blog/blog_content.html' %}
+      {% endif %}
+      {% endfor %}
+    </div>
+</div>
+
+
+
+
+{% endblock body %}

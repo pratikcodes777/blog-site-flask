@@ -1,0 +1,32 @@
+
+{% extends 'blog/base.html' %}
+{% block title %} {{ blog_to_expand.name }} {% endblock %}
+
+
+{% block body %}
+<div class="container my-3">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <img src="data:{{ blog_to_expand.mime_type }}; base64, {{ blog_to_expand.img }}" alt="thumbnail here" width="100%"> 
+            <br> <br>
+              <h5 class="card-title" style="text-decoration: underline;">{{ blog_to_expand.name }}</h5>
+              <p class="card-text">{{ blog_to_expand.desc }}</p>
+              <p class="card-text"><b>Created By:</b> {{ blog_to_expand.author.email }}</p>
+              <p class="card-text"><b>Created On:</b> {{ blog_to_expand.date_created }}</p>
+
+              {% if current_user.is_authenticated and current_user.email == blog_to_expand.author.email %}
+              <a href="/update/{{ blog_to_expand.id }}" class="btn btn-outline-primary">Update</a>
+              <a href="/delete/{{ blog_to_expand.id }}" class="btn btn-outline-danger">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <!-- <script src="{{url_for('static' , filename='script.js')}}"></script> -->
+  
+  {% endblock body %}
+  

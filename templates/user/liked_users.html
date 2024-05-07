@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block title %} Search Results {% endblock %}
+
+{% block body %}
+
+
+<ol class="list-group">
+    <li class="list-group-item"><u>People who liked : <b>{{ blog.name }}</b></u></li>
+    {% for user_email in liked_users %}
+    <li class="list-group-item">{{ loop.index }}. {{ user_email }}</li>
+    {% endfor %}
+</ol>
+
+
+
+
+
+{% endblock %}

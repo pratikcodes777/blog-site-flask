@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block title %} Update Blogs {% endblock %}
+
+{% block body %}
+<div class="container-sm my-3">
+    <form action="/update/{{ blog_to_update.id }}" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Name: </label>
+        <input type="text" class="form-control" id="formGroupExampleInput" name="name" value = "{{ blog_to_update.name }}">
+      </div> <br>
+      <div class="form-group">
+          <label for="exampleFormControlTextarea1">Description: </label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" rows="3" >{{ blog_to_update.desc }}</textarea>
+        </div> <br>
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Upload your thumbnail: </label>
+        <input type="file" class="form-control"  name="img" >
+      </div> <br>
+      <button type="submit" class="btn btn-primary" >Update</button>
+    </form>
+  </div>
+
+  {% endblock body %}

@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block title %} Add Blogs {% endblock %}
+
+{% block body %}
+<div class="container-sm my-3">
+    <form action="/add" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Name: </label>
+        <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Name of your Blog">
+      </div> <br>
+      <div class="form-group">
+          <label for="exampleFormControlTextarea1">Description: </label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" rows="3"></textarea>
+        </div> <br>
+      <!-- <div class="form-group">
+          <label for="formGroupExampleInput">Author: </label>
+          <input type="text" class="form-control" id="formGroupExampleInput" name="author" placeholder="Author Name here...">
+      </div> -->
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Upload your thumbnail: </label>
+        <input type="file" class="form-control"  name="img" >
+      </div> <br>
+      <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+  </div>
+
+  {% endblock body %}

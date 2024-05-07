@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+{% block title %} Search Results {% endblock %}
+
+{% block body %}
+
+<div class="container my-3" style="display: flex; justify-content: center;">
+    <div class="card-group" ">
+      <div class="card" style="border: none;">
+        <div class="imgcontainer" style="display: flex; justify-content: center;">
+          {% if current_user.image_file == 'default.jpg' %}
+            <img src="{{url_for('static', filename='images/default.jpg')}}" style="width: 40%;">
+          {% else %}
+            <img src="data:{{ current_user.mime_type }};base64,{{ current_user.image_file }}" class="card-img-top" alt="Please upload your image" style="width: 20%; display: flex; justify-content: center;">
+          {% endif %}
+        </div>              
+        <div class="container-sm" style="display: flex; justify-content: center;">
+          <p class="card-text"><b>My Email: {{ current_user.email}}</b></p>
+        </div>
+        <a style="display: flex; justify-content: center;" href="/change_pw">Change your password. </a>
+        </div>
+        <a href="{{url_for('friend_request')}}">See Incoming Requests</a> <br> <br>
+        <a href="{{url_for('my_friends')}}">My Friends</a>
+
+        
+        </div>
+        </div>
+
+        <div class="container my-3">
+    
+            <div class="row justify-content-center">
+                
+                <div class="col-md-6">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p>{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                   <u> <h3>Update Profile</h3></u>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" value="{{current_user.email}}" aria-describedby="emailHelp" name="email">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput">Update your Image: </label>
+                            <input type="file" class="form-control"  name="img" >
+                          </div>
+                        
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+       
+
+
+{% endblock %}

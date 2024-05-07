@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .footer {
+    background-color: #6EE27E;; 
+    color: #333; 
+    width: 100%;
+    padding: 30px 0;
+    bottom: 0;
+  }
+  

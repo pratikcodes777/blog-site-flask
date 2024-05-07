@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block title %}My Friends{% endblock %}
+
+{% block body %}
+    <h1>My Friends</h1>
+    <ul>
+        {% for friend in friends %}
+            <li>
+                {{ friend.email }}
+                <form action="{{ url_for('delete_friendship', friend_id=friend.id) }}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

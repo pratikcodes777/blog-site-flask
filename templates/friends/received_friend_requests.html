@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% block title %}Received Friend Requests{% endblock %}
+
+{% block content %}
+<h1>Received Friend Requests</h1>
+{% if received_requests %}
+    <ul>
+        {% for request in received_requests %}
+            <li>{{ request.sender.email }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No received friend requests.</p>
+{% endif %}
+{% endblock %}
+
